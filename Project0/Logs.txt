@@ -52,3 +52,6 @@
 2021-06-30 09:17:43 INFO  Menu:38 - End-user viewed product list
 2021-06-30 09:20:02 INFO  Menu:38 - End-user viewed product list
 2021-06-30 09:22:40 INFO  Menu:39 - End-user viewed sales rep list
+2021-06-30 09:30:16 INFO  Menu:39 - End-user viewed sales rep list
+2021-06-30 09:30:32 INFO  Menu:38 - End-user viewed product list
+2021-06-30 09:33:52 INFO  Menu:46 - End-user viewed customer list

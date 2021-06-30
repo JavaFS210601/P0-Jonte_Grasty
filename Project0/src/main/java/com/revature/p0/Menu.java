@@ -20,7 +20,7 @@ public class Menu {
 
 		// Greeting end-user
 		System.out.println("-----------------------------------");
-		System.out.println("E-Commerce Product Management");
+		System.out.println("Product Management Application");
 		System.out.println("-----------------------------------\n");
 
 		// Display menu options so long as displayMenu is true
@@ -104,7 +104,7 @@ public class Menu {
 
 		switch (menuInput2) {
 		case 0: {
-			System.out.println("System Exit");
+			System.out.println("Good-bye! Thank you for using the application");
 			System.exit(0);
 			break;
 		}
