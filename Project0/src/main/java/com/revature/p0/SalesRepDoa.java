@@ -30,7 +30,7 @@ public class SalesRepDoa implements SalesRepDoaInterface {
 
 				SalesRep salesRep = new SalesRep(rs.getInt("sales_rep_id"), rs.getString("sales_rep_first_name"),
 						rs.getString("sales_rep_last_name"), rs.getString("sales_rep_phone_number"),
-						rs.getString("sales_rep_email"), rs.getInt("ctr_number"));
+						rs.getString("sales_rep_email"));
 
 				salesRepList.add(salesRep);
 
@@ -51,7 +51,7 @@ public class SalesRepDoa implements SalesRepDoaInterface {
 		try (Connection conn = ConnectionUtil.getConnection()) {
 
 			String sql = "INSERT INTO sales_representatives (sales_rep_id, sales_rep_first_name, sales_rep_last_name,"
-					+ "sales_rep_phone_number, sales_rep_email, ctr_number)" + "VALUES (?, ?, ?, ?, ?, ?);";
+					+ "sales_rep_phone_number, sales_rep_email)" + "VALUES (?, ?, ?, ?, ?);";
 			PreparedStatement ps = conn.prepareStatement(sql);
 
 			ps.setInt(1, salesRep.getSales_rep_id());
@@ -59,7 +59,6 @@ public class SalesRepDoa implements SalesRepDoaInterface {
 			ps.setString(3, salesRep.getSales_rep_last_name());
 			ps.setString(4, salesRep.getSales_rep_phone_number());
 			ps.setString(5, salesRep.getSales_rep_email());
-			ps.setInt(6, salesRep.getCtr_number());
 			ps.executeUpdate();
 
 			System.out.println("New sales rep: " + salesRep.getSales_rep_first_name() + " added!");
@@ -72,25 +71,25 @@ public class SalesRepDoa implements SalesRepDoaInterface {
 		
 	}// end addSalesRep
 
-	@Override
-	public void removeSalesRep(int sales_rep_id) {
-		try (Connection conn = ConnectionUtil.getConnection()) {
-
-			String sql = "DELETE FROM sales_representatives WHERE sales_rep_id = ?;";
-			PreparedStatement ps = conn.prepareStatement(sql);
-
-			ps.setInt(1, sales_rep_id);
-//		
-			ps.executeUpdate();
-
-			System.out.println("Sales rep: " + sales_rep_id + " removed!");
-			log.info("End-user removed sales rep");
-
-		} catch (SQLException e) {
-			System.out.println("Sales rep not deleted!");
-			e.printStackTrace();
-
-		} // end try-catch
-
-	}// end removeSalesrep
+//	@Override
+//	public void removeSalesRep(int sales_rep_id) {
+//		try (Connection conn = ConnectionUtil.getConnection()) {
+//
+//			String sql = "DELETE FROM sales_representatives WHERE sales_rep_id = ?;";
+//			PreparedStatement ps = conn.prepareStatement(sql);
+//
+//			ps.setInt(1, sales_rep_id);
+////		
+//			ps.executeUpdate();
+//
+//			System.out.println("Sales rep: " + sales_rep_id + " removed!");
+//			log.info("End-user removed sales rep");
+//
+//		} catch (SQLException e) {
+//			System.out.println("Sales rep not deleted!");
+//			e.printStackTrace();
+//
+//		} // end try-catch
+//
+//	}// end removeSalesrep
 }// end SalesRepDoa

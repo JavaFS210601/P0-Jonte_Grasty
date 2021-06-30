@@ -26,17 +26,6 @@ public class Customer {
 		this.sales_rep_id = sales_rep_id;
 	}
 
-	public Customer(int ctr_number, String ctr_first_name, String ctr_last_name, String ctr_phone_number,
-			String ctr_email, double ctr_current_balance) {
-		super();
-		this.ctr_number = ctr_number;
-		this.ctr_first_name = ctr_first_name;
-		this.ctr_last_name = ctr_last_name;
-		this.ctr_phone_number = ctr_phone_number;
-		this.ctr_email = ctr_email;
-		this.ctr_current_balance = ctr_current_balance;
-	}
-
 	/**
 	 * @return the ctr_number
 	 */

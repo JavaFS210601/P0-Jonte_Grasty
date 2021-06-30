@@ -1,7 +1,7 @@
 package com.revature.p0;
 
 public class SalesRep {
-	private int sales_rep_id, ctr_number;
+	private int sales_rep_id;
 	private String sales_rep_first_name, sales_rep_last_name, sales_rep_phone_number, sales_rep_email;
 
 	/**
@@ -12,55 +12,33 @@ public class SalesRep {
 	 * @param sales_rep_phone_number
 	 * @param sales_rep_email
 	 */
+
 	public SalesRep(int sales_rep_id, String sales_rep_first_name, String sales_rep_last_name,
-			String sales_rep_phone_number, String sales_rep_email, int ctr_number) {
+			String sales_rep_phone_number, String sales_rep_email) {
 		super();
 		this.sales_rep_id = sales_rep_id;
 		this.sales_rep_first_name = sales_rep_first_name;
 		this.sales_rep_last_name = sales_rep_last_name;
 		this.sales_rep_phone_number = sales_rep_phone_number;
 		this.sales_rep_email = sales_rep_email;
-		this.ctr_number = ctr_number;
 	}
 
-	/**
-	 * @return the sales_rep_id
-	 */
 	public int getSales_rep_id() {
 		return sales_rep_id;
 	}
 
-	/**
-	 * @return the ctr_number
-	 */
-	public int getCtr_number() {
-		return ctr_number;
-	}
-
-	/**
-	 * @return the sales_rep_first_name
-	 */
 	public String getSales_rep_first_name() {
 		return sales_rep_first_name;
 	}
 
-	/**
-	 * @return the sales_rep_last_name
-	 */
 	public String getSales_rep_last_name() {
 		return sales_rep_last_name;
 	}
 
-	/**
-	 * @return the sales_rep_phone_number
-	 */
 	public String getSales_rep_phone_number() {
 		return sales_rep_phone_number;
 	}
 
-	/**
-	 * @return the sales_rep_email
-	 */
 	public String getSales_rep_email() {
 		return sales_rep_email;
 	}
@@ -69,7 +47,6 @@ public class SalesRep {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ctr_number;
 		result = prime * result + ((sales_rep_email == null) ? 0 : sales_rep_email.hashCode());
 		result = prime * result + ((sales_rep_first_name == null) ? 0 : sales_rep_first_name.hashCode());
 		result = prime * result + sales_rep_id;
@@ -87,8 +64,6 @@ public class SalesRep {
 		if (getClass() != obj.getClass())
 			return false;
 		SalesRep other = (SalesRep) obj;
-		if (ctr_number != other.ctr_number)
-			return false;
 		if (sales_rep_email == null) {
 			if (other.sales_rep_email != null)
 				return false;
@@ -116,9 +91,9 @@ public class SalesRep {
 
 	@Override
 	public String toString() {
-		return "SalesRep [sales_rep_id=" + sales_rep_id + ", ctr_number=" + ctr_number + ", sales_rep_first_name="
-				+ sales_rep_first_name + ", sales_rep_last_name=" + sales_rep_last_name + ", sales_rep_phone_number="
-				+ sales_rep_phone_number + ", sales_rep_email=" + sales_rep_email + "]";
+		return "SalesRep [sales_rep_id=" + sales_rep_id + ", sales_rep_first_name=" + sales_rep_first_name
+				+ ", sales_rep_last_name=" + sales_rep_last_name + ", sales_rep_phone_number=" + sales_rep_phone_number
+				+ ", sales_rep_email=" + sales_rep_email + "]";
 	}
 
 }// end SalesRep

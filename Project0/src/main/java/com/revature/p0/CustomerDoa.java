@@ -60,7 +60,7 @@ public class CustomerDoa implements CustomerDoaInterface {
 		try (Connection conn = ConnectionUtil.getConnection()) {
 			
 			String sql = "INSERT INTO customers (ctr_number, ctr_first_name, ctr_last_name, "
-					+ "ctr_phone_number, ctr_email, ctr_current_balance, sales_rep_id)" + "VALUES (?, ?, ?, ?, ?, ?);";
+					+ "ctr_phone_number, ctr_email, ctr_current_balance, sales_rep_id)" + "VALUES (?, ?, ?, ?, ?, ?, ?);";
 			PreparedStatement ps = conn.prepareStatement(sql);
 
 			ps.setInt(1, customer.getCtr_number());

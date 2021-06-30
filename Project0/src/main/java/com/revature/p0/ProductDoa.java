@@ -29,7 +29,7 @@ public class ProductDoa implements ProductDoaInterface {
 			while (rs.next()) {
 
 				Product product = new Product(rs.getInt("product_number"), rs.getString("product_name"),
-						rs.getString("product_description"), rs.getString("product_category"), rs.getInt("ctr_number"));
+						rs.getString("product_description"), rs.getString("product_category"), rs.getDouble("product_price"));
 
 				productList.add(product);
 
@@ -50,7 +50,7 @@ public class ProductDoa implements ProductDoaInterface {
 	public void addProduct(Product product) {
 		try (Connection conn = ConnectionUtil.getConnection()) {
 
-			String sql = "INSERT INTO products (product_number, product_name, product_description, product_category, ctr_number)"
+			String sql = "INSERT INTO products (product_number, product_name, product_description, product_category, product_price)"
 					+ "VALUES (?, ?, ?, ?, ?);";
 			PreparedStatement ps = conn.prepareStatement(sql);
 
@@ -58,7 +58,7 @@ public class ProductDoa implements ProductDoaInterface {
 			ps.setString(2, product.getProduct_name());
 			ps.setString(3, product.getProduct_description());
 			ps.setString(4, product.getProduct_category());
-			ps.setInt(5, product.getCtr_number());
+			ps.setDouble(5, product.getProduct_price());
 
 			ps.executeUpdate();
 

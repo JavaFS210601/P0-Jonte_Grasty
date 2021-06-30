@@ -7,6 +7,9 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class Menu {
+	CustomerDoa custDoa = new CustomerDoa();
+	SalesRepDoa salesRepDoa = new SalesRepDoa();
+	ProductDoa productDoa = new ProductDoa();
 
 	static Scanner keyboard = new Scanner(System.in);
 	final Logger log = LogManager.getLogger(Menu.class);
@@ -17,7 +20,7 @@ public class Menu {
 
 		// Greeting end-user
 		System.out.println("-----------------------------------");
-		System.out.println("Tigerhost E-Commerce Admin Panel");
+		System.out.println("E-Commerce Product Management");
 		System.out.println("-----------------------------------\n");
 
 		// Display menu options so long as displayMenu is true
@@ -25,13 +28,13 @@ public class Menu {
 
 			// Menu options
 			System.out.println("--------------------------------");
-			System.out.println("Select an administrator menu:");
+			System.out.println("Select an option: ");
 			System.out.println("0 - Exit");
 			System.out.println("1 - Products");
 			System.out.println("2 - Customers");
 			System.out.println("3 - Sales Reps");
 			System.out.println("--------------------------------\n");
-			
+
 			// Parse user input after menu selection.
 			int menuInput = keyboard.nextInt();
 
@@ -79,8 +82,8 @@ public class Menu {
 				System.out.println("Select an option:");
 				System.out.println("0 - Exit");
 				System.out.println("1 - Add Sales Rep");
-				System.out.println("2 - Remove Sales Rep");
-				System.out.println("3 - Show All Sales Reps");
+//				System.out.println("2 - Remove Sales Rep");
+				System.out.println("2 - Show All Sales Reps");
 				System.out.println("----------------------\n");
 				int menuInput2 = keyboard.nextInt();
 				salesRepMenu(menuInput2);
@@ -98,7 +101,6 @@ public class Menu {
 	}// end mainMenu()
 
 	public void customerMenu(int menuInput2) {
-		CustomerDoa custDoa = new CustomerDoa(); 	
 
 		switch (menuInput2) {
 		case 0: {
@@ -110,7 +112,7 @@ public class Menu {
 		case 1: {
 			System.out.println("Add Customer to database");
 
-			System.out.println("Enter Customer Id: ");
+			System.out.println("Enter the 6-Digit Customer Id: ");
 			int cus_number = keyboard.nextInt();
 			keyboard.nextLine();
 
@@ -122,15 +124,19 @@ public class Menu {
 
 			System.out.println("Enter Customer's Phone Number: ");
 			String cus_phone_number = keyboard.nextLine();
-			
-			System.out.println("Enter Customer's email: ");
+
+			System.out.println("Enter Customer's Email: ");
 			String cus_email = keyboard.nextLine();
 
 			System.out.println("Enter Customer's Current Balance: ");
 			double cus_current_balance = keyboard.nextDouble();
 
-			Customer newCustomer = new Customer(cus_number, cus_first_name, cus_last_name, cus_email, cus_phone_number,
-					cus_current_balance);
+			System.out.println("Enter the 4-Digit Sales Rep Id#: ");
+			getSalesRep();
+			int sales_rep_id = keyboard.nextInt();
+
+			Customer newCustomer = new Customer(cus_number, cus_first_name, cus_last_name, cus_phone_number, cus_email,
+					cus_current_balance, sales_rep_id);
 
 			custDoa.addCustomer(newCustomer);
 
@@ -140,12 +146,7 @@ public class Menu {
 		case 2: {
 			log.warn("End-user attempted to delete customer");
 			System.out.println("Remove Customer from database");
-			List<Customer> customers = custDoa.listCustomers();
-
-			for (Customer c : customers) {
-				System.out.println(c);
-			}
-
+			getCustomers();
 			System.out.println("Enter the customer number of the customer to be deleted: ");
 			int cus_num = keyboard.nextInt();
 			keyboard.nextLine();
@@ -156,12 +157,7 @@ public class Menu {
 
 		case 3: {
 			System.out.println("Preparing to display all customers...\n");
-			List<Customer> customers = custDoa.listCustomers();
-
-			for (Customer c : customers) {
-				System.out.println("Customer#: " + c.getCtr_number() + ", Customer: " + c.getCtr_first_name() + " " + c.getCtr_last_name() 
-				+  ", Phone: " + c.getCtr_phone_number() + ", Email: " + c.getCtr_email() + ", Balance: " + c.getCtr_current_balance());
-			}
+			getCustomers();
 			System.out.println("\n---- End of customer list ----");// line break
 			break;
 		}
@@ -174,9 +170,7 @@ public class Menu {
 		}// end switch
 	}// end customerMenu
 
-	
 	public void salesRepMenu(int menuInput2) {
-		SalesRepDoa salesRepDoa = new SalesRepDoa(); 	
 
 		switch (menuInput2) {
 		case 0: {
@@ -188,7 +182,7 @@ public class Menu {
 		case 1: {
 			System.out.println("Add Sales Rep to database");
 
-			System.out.println("Enter Sales Rep Id: ");
+			System.out.println("Enter the 4-Digit Sales Rep Id#: ");
 			int sales_rep_id = keyboard.nextInt();
 			keyboard.nextLine();
 
@@ -200,46 +194,33 @@ public class Menu {
 
 			System.out.println("Enter Sales Rep's Phone Number: ");
 			String sales_rep_phone_number = keyboard.nextLine();
-			
-			System.out.println("Enter Sales Rep's email: ");
+
+			System.out.println("Enter Sales Rep's Email: ");
 			String sales_rep_email = keyboard.nextLine();
 
-			System.out.println("Enter Sales Rep's assigned customer's number: ");
-			int cus_number = keyboard.nextInt();
-
-			SalesRep newSalesRep = new SalesRep(sales_rep_id, sales_rep_first_name,	sales_rep_last_name, 
-												sales_rep_phone_number, sales_rep_email, cus_number);
+			SalesRep newSalesRep = new SalesRep(sales_rep_id, sales_rep_first_name, sales_rep_last_name,
+					sales_rep_phone_number, sales_rep_email);
 
 			salesRepDoa.addSalesRep(newSalesRep);
 
 			break;
 		}
 
+//		case 2: {
+//			log.warn("End-user attempted to delete sales rep");
+//			System.out.println("Remove sales rep from database");
+//			getSalesRep();
+//			System.out.println("Enter the sales rep id of the sales rep to be deleted: ");
+//			int sales_rep_id = keyboard.nextInt();
+//			keyboard.nextLine();
+//
+//			salesRepDoa.removeSalesRep(sales_rep_id);
+//			break;
+//		}
+
 		case 2: {
-			log.warn("End-user attempted to delete sales rep");
-			System.out.println("Remove sales rep from database");
-			List<SalesRep> salesReps = salesRepDoa.listSalesReps();
-
-			for (SalesRep sr : salesReps) {
-				System.out.println(sr);
-			}
-
-			System.out.println("Enter the sales rep id of the sales rep to be deleted: ");
-			int sales_rep_id = keyboard.nextInt();
-			keyboard.nextLine();
-
-			salesRepDoa.removeSalesRep(sales_rep_id);
-			break;
-		}
-
-		case 3: {
 			System.out.println("Preparing to display all sales reps...\n");
-			List<SalesRep> salesReps = salesRepDoa.listSalesReps();
-
-			for (SalesRep sr : salesReps) {
-				System.out.println("Rep Id#: " + sr.getSales_rep_id() + ", Rep: " + sr.getSales_rep_first_name() + " " + sr.getSales_rep_last_name() 
-				+  ", Phone: " + sr.getSales_rep_phone_number() + ", Email: " + sr.getSales_rep_email() + ", Customer#: " + sr.getCtr_number());
-			}
+			getSalesRep();
 			System.out.println("\n---- End of sales rep list ----");// line break
 			break;
 		}
@@ -251,10 +232,8 @@ public class Menu {
 
 		}// end switch
 	}// end customerMenu
-	
-	
+
 	public void productMenu(int menuInput2) {
-		ProductDoa productDoa= new ProductDoa(); 	
 
 		switch (menuInput2) {
 		case 0: {
@@ -266,7 +245,7 @@ public class Menu {
 		case 1: {
 			System.out.println("Add Product to database");
 
-			System.out.println("Enter Product Number: ");
+			System.out.println("Enter the 8-Digit Product Number: ");
 			int product_number = keyboard.nextInt();
 			keyboard.nextLine();
 
@@ -279,10 +258,10 @@ public class Menu {
 			System.out.println("Enter Product Category: ");
 			String product_category = keyboard.nextLine();
 			
-			System.out.println("Enter Customer Number: ");
-			int ctr_number = keyboard.nextInt();
+			System.out.println("Enter Product Price: ");
+			double product_price = keyboard.nextDouble();
 
-			Product products = new Product(product_number, product_name, product_description, product_category, ctr_number);
+			Product products = new Product(product_number, product_name, product_description, product_category, product_price);
 
 			productDoa.addProduct(products);
 
@@ -292,27 +271,18 @@ public class Menu {
 		case 2: {
 			log.warn("End-user attempted to delete product");
 			System.out.println("Remove product from database");
-			List<Product> products = productDoa.listProducts();
-
-			for (Product p : products) {
-				System.out.println(p);
-			}
-
+			getProducts();
 			System.out.println("Enter the product to be deleted: ");
 			int product_number = keyboard.nextInt();
 			keyboard.nextLine();
 
-			productDoa.removeProduct(product_number);			
+			productDoa.removeProduct(product_number);
 			break;
 		}
 
 		case 3: {
 			System.out.println("Preparing to display all products...\n");
-			List<Product> products = productDoa.listProducts();
-
-			for (Product p : products) {
-				System.out.println("Customer#: " + p.getCtr_number() + ", Product#: " + p.getProduct_number() + ", Product: " + p.getProduct_name() + ", Description: " + p.getProduct_description() + ", Category: " + p.getProduct_category());
-			}
+			getProducts();
 			System.out.println("\n---- End of products list ----");// line break
 			break;
 		}
@@ -324,4 +294,33 @@ public class Menu {
 
 		}// end switch
 	}// end customerMenu
+
+	public void getProducts() {
+		List<Product> products = productDoa.listProducts();
+
+		for (Product p : products) {
+			System.out.println("Product#: " + p.getProduct_number() + ", Product: " + p.getProduct_name()
+					+ ", Description: " + p.getProduct_description() + ", Category: " + p.getProduct_category() + ", Price: " + p.getProduct_price());
+		}
+	}
+
+	public void getCustomers() {
+		List<Customer> customers = custDoa.listCustomers();
+
+		for (Customer c : customers) {
+			System.out.println("Customer#: " + c.getCtr_number() + ", Customer: " + c.getCtr_first_name() + " "
+					+ c.getCtr_last_name() + ", Phone: " + c.getCtr_phone_number() + ", Email: " + c.getCtr_email()
+					+ ", Balance: " + c.getCtr_current_balance());
+		}
+	}
+
+	public void getSalesRep() {
+		List<SalesRep> salesReps = salesRepDoa.listSalesReps();
+
+		for (SalesRep sr : salesReps) {
+			System.out.println("Rep Id#: " + sr.getSales_rep_id() + ", Rep: " + sr.getSales_rep_first_name() + " "
+					+ sr.getSales_rep_last_name() + ", Phone: " + sr.getSales_rep_phone_number() + ", Email: "
+					+ sr.getSales_rep_email());
+		}
+	}
 }// end Class
